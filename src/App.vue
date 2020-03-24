@@ -1,5 +1,5 @@
 <template>
-  <el-container  class="home" id="app">
+  <el-container id="app">
       <NavMenu/>
       <el-container class="right-container">
         <el-header height="70px">
@@ -39,10 +39,8 @@ export default {
   font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: #c0c4cc;
   background-color: #2a2b3d;
-}
-.home{
   height: 100%;
 }
 .right-container{
@@ -77,6 +75,7 @@ export default {
     .el-icon-menu{
       font-size: 28px;
       line-height: 40px;
+      color: #ea5906;
     }
   }
 }

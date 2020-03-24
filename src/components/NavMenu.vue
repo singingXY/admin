@@ -2,7 +2,7 @@
   <el-menu 
     class="el-menu"
     background-color="#242635"
-    text-color="#999"
+    text-color="#c0c4cc"
     active-text-color="#fff"
     :collapse="isCollapse"
     @mouseenter.native="collapseOpen">
@@ -91,11 +91,12 @@ export default {
 .el-menu-item [class^=el-icon-]{
   margin-right: 10px;
   font-size: 22px;
+  color: #c0c4cc;
 }
 /* 收起侧栏按钮 */
 .menu-collapse{
   background: #43435d;
-  color: #eee;
+  color: #c0c4cc;
   position: absolute;
   right: -1rem;top: 50%;
   margin-top: -1.5rem;
