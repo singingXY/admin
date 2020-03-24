@@ -5,6 +5,8 @@
 $--color-white: #43435d !default;
 /// color|1|Border Color|3
 $--border-color-base: #43435d !default;
+/// color|1|Font Color|2
+$--color-text-regular: #c0c4cc !default;
 
 /* 改变 icon 字体路径变量，必需 */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';

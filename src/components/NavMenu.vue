@@ -72,17 +72,19 @@ export default {
       width: 220px;
     }
     .logo {
-      text-align: center;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      height: 70px;
       padding: 1rem 0;
       color: #e0620d;
       font-weight: bold;
-      font-size: 28px;
-      display: flex;
-      align-items: center;
+      font-size: 26px;
+      text-align: center;
       img {
-        width: 46px;
+        width: 34px;
         margin-right: 5px;
-        margin-left: .6rem;
+        margin-left: 1rem;
       }
     }
 }
