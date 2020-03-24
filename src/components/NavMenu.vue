@@ -103,6 +103,8 @@ export default {
   height: 3rem;
   line-height: 3rem;
   border-radius: 0 1rem 1rem 0;
+  cursor: pointer;
+  z-index: 1;
 }
 li.el-menu-item.is-active{
   &::before{
