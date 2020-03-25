@@ -35,6 +35,11 @@
     <el-menu-item index=7>
       <i class="el-icon-ali-fankui"></i>
       <span slot="title">用户信息反馈</span></el-menu-item>
+      
+    <el-button class="chang-themes" icon="el-icon-sunny" circle 
+    @click="toggleTheme(1)"></el-button>
+    <el-button  class="chang-themes" icon="el-icon-moon" circle
+     @click="toggleTheme(0)"></el-button>
   </el-menu>
 </template>
 
@@ -55,6 +60,12 @@ export default {
     },
     collapseClose(){
       this.isCollapse = true
+    },
+    toggleTheme(index) {
+      window.document.documentElement.setAttribute(
+        "data-theme",
+        index ? "light" : "dark"
+      );
     }
   },
 }
@@ -77,21 +88,27 @@ export default {
       align-items: center;
       height: 70px;
       padding: 1rem 0;
-      color: #e0620d;
       font-weight: bold;
       font-size: 26px;
       text-align: center;
+      color: $logocolor;
       img {
         width: 34px;
         margin-right: 5px;
         margin-left: 1rem;
       }
     }
-}
-.el-menu-item [class^=el-icon-]{
-  margin-right: 10px;
-  font-size: 22px;
-  color: #c0c4cc;
+    .el-menu-item [class^=el-icon-]{
+      margin-right: 10px;
+      font-size: 22px;
+      color: #c0c4cc;
+    }
+    // 换主题按钮
+    .chang-themes{
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+    }
 }
 /* 收起侧栏按钮 */
 .menu-collapse{
@@ -114,7 +131,7 @@ li.el-menu-item.is-active{
     left: 0;
     width: 5px;
     height: 100%;
-    background: #ea5906;
+    background: $logocolor;
   }
   background-color: #313447 !important;
 }

@@ -1,6 +1,7 @@
 <template>
-  <el-container id="app">
+  <el-container id="app" >
       <NavMenu/>
+      
       <el-container class="right-container">
         <el-header height="70px">
           <div class="search-box">
@@ -13,6 +14,7 @@
         </el-header>
         <el-main>
           <router-view/>
+        
         </el-main>
       </el-container>
   </el-container>
@@ -24,7 +26,16 @@
 export default {
   data () {
     return {
-     searchText:''
+     searchText:'',
+     theme: 1
+    }
+  },
+  methods: {
+    toggleTheme(index) {
+      window.document.documentElement.setAttribute(
+        "data-theme",
+        index ? "light" : "dark"
+      );
     }
   },
   components: {
@@ -35,13 +46,16 @@ export default {
 
 <style lang="scss">
 
+// @import "@/assets/css/_handle.scss";
+ 
 #app {
   font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #c0c4cc;
-  background-color: #2a2b3d;
   height: 100%;
+  @include backgroundColor("background_color");
+  transition: all .3s;
 }
 .right-container{
   width: 100%;
@@ -51,7 +65,7 @@ export default {
     display: flex;
     justify-content: space-between;
     padding: 1rem 30px;
-    background :#43435d;
+    @include backgroundColor("background_color-2");
     color: #C0C4CC;
     .search-box{
       display: flex;
@@ -67,6 +81,7 @@ export default {
         outline: none;
         border: none;
         border-radius:0;
+        background-color: transparent;
         &:focus{
           border-bottom: 1px solid #C0C4CC;
         }
@@ -75,7 +90,7 @@ export default {
     .el-icon-menu{
       font-size: 28px;
       line-height: 40px;
-      color: #ea5906;
+      color: $logocolor;
     }
   }
 }
