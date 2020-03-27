@@ -1,6 +1,9 @@
 <template>
   <div class="home">
-    <el-row class="home-row1" :gutter="26" type="flex" justify="center">
+    <el-row class="home-row1"
+            :gutter="26"
+            type="flex"
+            justify="center">
       <el-col :span="8">
         <el-card shadow="always">
           <i class="el-icon-alifangan"></i>
@@ -26,7 +29,10 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-row class="home-row2" :gutter="26" type="flex" justify="center">
+    <el-row class="home-row2"
+            :gutter="26"
+            type="flex"
+            justify="center">
       <el-col :span="4">
         <el-card shadow="always">
           <i class="el-icon-aliditu"></i>
@@ -62,7 +68,7 @@
         </el-card>
       </el-col>
     </el-row>
-    
+
   </div>
 </template>
 
@@ -70,96 +76,100 @@
 </script>
 
 <style lang="scss" >
-  .home{
-    padding: 60px 0;
-    .el-row {
-      margin-bottom: 26px;
+.home {
+  padding: 60px 0;
+  .el-row {
+    margin-bottom: 26px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .el-card {
+    height: 240px;
+    border: none;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 18px;
+    &:hover {
+      transform: scale(1.05);
+    }
+    .el-card__body {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      height: 100%;
+    }
+    [class^="el-icon-ali"],
+    [class*="el-icon-ali"] {
+      display: block;
+      margin-top: 30px;
+      font-size: 58px;
+    }
+  }
+  .home-row1 {
+    .el-card {
+      color: #fff;
+    }
+    .el-col {
+      &:nth-child(1) .el-card {
+        background-color: #d1703d;
+      }
+      &:nth-child(2) .el-card {
+        background-color: #1bb2a1;
+      }
+      &:nth-child(3) .el-card {
+        background-color: #4987d2;
+      }
+      &:nth-child(4) .el-card {
+        background-color: #826ee1;
+      }
+    }
+  }
+  .home-row2 {
+    .el-card {
+      color: #ddd;
+      @include backgroundColor("background_color-2");
+      @include fontColor("font_color");
+    }
+    .el-col {
+      &:nth-child(1) i {
+        color: #4886cf;
+      }
+      &:nth-child(2) i {
+        color: #e6a64c;
+      }
+      &:nth-child(3) i {
+        color: #61abda;
+      }
+      &:nth-child(4) i {
+        color: #d1703d;
+      }
       &:last-child {
-        margin-bottom: 0;
-      }
-    }
-    .el-card{
-      height: 240px;
-      border: none;
-      border-radius:6px;
-      text-align: center;
-      font-size: 18px;
-      &:hover{
-        transform: scale(1.05);
-        
-      }
-      .el-card__body{
-        box-sizing: border-box;
         display: flex;
-        flex-direction:column;
-        justify-content:space-around;
-        height: 100%;
-      }
-      [class^='el-icon-ali'],[class*='el-icon-ali']{
-        display: block;
-        margin-top: 30px;
-        font-size: 58px;
-      }
-    }
-    .home-row1{
-      .el-card{color: #fff;}
-      .el-col{
-        &:nth-child(1) .el-card{
-          background-color: #d1703d;
-        }
-        &:nth-child(2) .el-card{
-          background-color: #1bb2a1;
-        }
-        &:nth-child(3) .el-card{
-          background-color: #4987d2;
-        }
-        &:nth-child(4) .el-card{
-          background-color: #826ee1;
-        }
-      }
-    }
-    .home-row2{
-      .el-card{
-        color: #ddd;
-      }
-      .el-col{
-        &:nth-child(1) i{
-          color: #4886cf;
-        }
-        &:nth-child(2) i{
-          color: #e6a64c;
-        }
-        &:nth-child(3) i{
-          color: #61abda;
-        }
-        &:nth-child(4) i{
-          color: #d1703d;
-        }
-        &:last-child{
+        flex-direction: column;
+        justify-content: space-between;
+        .el-card {
           display: flex;
-          flex-direction:column;
-          justify-content:space-between;
-          .el-card{
-            display: flex;
-            height: 105px;
-            .el-card__body{
-              flex-direction: row;
-              align-items: center;
-            }
-            i{
-              margin-top: 0;
-              margin-right: 15px;
-              font-size: 40px;
-            }
-             &:nth-child(1) i{
-               color: #19b291;
-             }
-             &:nth-child(2) i{
-               color: #8d74f6;
-             }
+          height: 105px;
+          .el-card__body {
+            flex-direction: row;
+            align-items: center;
+          }
+          i {
+            margin-top: 0;
+            margin-right: 15px;
+            font-size: 40px;
+          }
+          &:nth-child(1) i {
+            color: #19b291;
+          }
+          &:nth-child(2) i {
+            color: #8d74f6;
           }
         }
       }
     }
   }
+}
 </style>

@@ -3,6 +3,7 @@
            background-color="#242635"
            text-color="#c0c4cc"
            active-text-color="#fff"
+           router
            :collapse="isCollapse"
            @mouseenter.native="collapseOpen">
     <div class="menu-collapse"
@@ -15,7 +16,7 @@
            alt="">
       <span v-if="!isCollapse"> Admin</span>
     </div>
-    <el-menu-item index=1>
+    <el-menu-item index="AddUser">
       <i class="el-icon-ali-addchegnyuan"></i>
       <span slot="title">添加用户</span>
     </el-menu-item>
