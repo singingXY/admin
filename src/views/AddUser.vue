@@ -4,66 +4,74 @@
       <el-button size="medium">添加用户</el-button>
       <el-button size="medium">用户设备</el-button>
     </el-row>
-    <el-table :data="tableData"
+    <el-table :data="userData.list"
               style="width: 100%"
               row-class-name="table-row">
-      <el-table-column prop="date"
-                       label="序列">
+      <el-table-column prop="order"
+                       label="序列"
+                       width="40">
       </el-table-column>
-      <el-table-column prop="name"
+      <el-table-column prop="username"
                        label="用户名">
       </el-table-column>
-      <el-table-column prop="address"
+      <el-table-column prop="phone"
                        label="手机号码">
       </el-table-column>
       <el-table-column prop="email"
                        label="邮箱">
       </el-table-column>
-      <el-table-column prop="name"
+      <el-table-column prop="company"
                        label="公司">
       </el-table-column>
-      <el-table-column prop="type"
+      <el-table-column prop="industry"
                        label="行业类型">
       </el-table-column>
-      <el-table-column prop="name"
-                       label="操作">
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button @click="handleClick(scope.row)"
+                     type="text"
+                     size="small">查看</el-button>
+          <el-button type="text"
+                     size="small">编辑</el-button>
+        </template>
       </el-table-column>
     </el-table>
     <el-pagination background
                    layout="prev, pager, next"
-                   :total="1000">
+                   :total="userData.totalCount"
+                   :current-page="currentPage"
+                   @current-change="currentChange">
 
     </el-pagination>
   </div>
 </template>
 
 <script>
+import { apiAddUser } from "@/plugins/api";
 export default {
   data() {
     return {
-      tableData: [
-        {
-          date: "1",
-          name: "王小虎",
-          address: "151****6863"
-        },
-        {
-          date: "1",
-          name: "王小虎",
-          address: "151****6863"
-        },
-        {
-          date: "1",
-          name: "王小虎",
-          address: "151****6863"
-        },
-        {
-          date: "3",
-          name: "王小虎",
-          address: "151****6863"
-        }
-      ]
+      userData: [],
+      currentPage: 1
     };
+  },
+  created() {
+    this.onLoad();
+  },
+  methods: {
+    onLoad() {
+      apiAddUser().then(res => {
+        this.userData = res;
+        this.currentPage = this.userData.pagination.pageIndex;
+        console.log(this.userData);
+      });
+    },
+    currentChange() {
+      //当前页改变时触发请求
+    },
+    handleClick(row) {
+      //console.log(row);
+    }
   }
 };
 </script>
