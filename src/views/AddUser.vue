@@ -4,12 +4,12 @@
       <el-button size="medium">添加用户</el-button>
       <el-button size="medium">用户设备</el-button>
     </el-row>
-    <el-table :data="userData.list"
+    <el-table :data="userData.data.list"
               style="width: 100%"
               row-class-name="table-row">
       <el-table-column prop="order"
                        label="序列"
-                       width="40">
+                       width="50">
       </el-table-column>
       <el-table-column prop="username"
                        label="用户名">
@@ -60,14 +60,18 @@ export default {
   },
   methods: {
     onLoad() {
-      apiAddUser().then(res => {
+      apiAddUser({ page: 1 }).then(res => {
         this.userData = res;
-        this.currentPage = this.userData.pagination.pageIndex;
+        this.currentPage = parseInt(this.userData.pagination.pageIndex);
         console.log(this.userData);
       });
     },
-    currentChange() {
+    currentChange(current) {
       //当前页改变时触发请求
+      apiAddUser({ page: current }).then(res => {
+        this.userData = res;
+        this.currentPage = parseInt(this.userData.pagination.pageIndex);
+      });
     },
     handleClick(row) {
       //console.log(row);
