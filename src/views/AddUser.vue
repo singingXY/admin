@@ -6,43 +6,60 @@
     </el-row>
     <el-table :data="userList"
               style="width: 100%"
-              row-class-name="table-row">
+              row-class-name="table-row"
+              :row-key="userList.id">
       <el-table-column prop="order"
                        label="序列"
-                       width="50">
+                       width="50"
+                       align="center">
       </el-table-column>
       <el-table-column prop="username"
-                       label="用户名">
+                       label="用户名"
+                       min-width="6%"
+                       align="center">
       </el-table-column>
       <el-table-column prop="phone"
                        label="手机号码"
+                       min-width="10%"
+                       align="center"
                        :formatter="formatter">
       </el-table-column>
       <el-table-column prop="email"
-                       label="邮箱">
+                       label="邮箱"
+                       min-width="12%"
+                       align="center">
       </el-table-column>
       <el-table-column prop="company"
-                       label="公司">
+                       label="公司"
+                       min-width="12%"
+                       align="center">
       </el-table-column>
       <el-table-column prop="industry"
-                       label="行业类型">
+                       label="行业类型"
+                       min-width="6%"
+                       align="center">
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="操作"
+                       min-width="8%"
+                       align="center">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)"
+          <el-button class="operation-btn"
+                     @click="handleClick(scope.row)"
                      type="text"
-                     size="small">查看</el-button>
-          <el-button type="text"
-                     size="small">编辑</el-button>
+                     size="small">修改</el-button>
+          <span class="operation-btn-span"> | </span>
+          <el-button class="operation-btn"
+                     type="text"
+                     size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-pagination background
-                   layout="prev, pager, next"
+                   layout="prev, pager, next, jumper"
                    :total="userData.totalCount"
-                   :current-page="currentPage"
-                   @current-change="currentChange">
-
+                   @size-change="currentChange"
+                   @current-change="currentChange"
+                   :current-page="currentPage">
     </el-pagination>
   </div>
 </template>
@@ -77,7 +94,7 @@ export default {
       });
     },
     handleClick(row) {
-      //console.log(row);
+      console.log(row);
     },
 
     formatter(row) {
@@ -88,6 +105,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.el-main {
+  margin: 0 auto;
+}
 .add-btn {
   margin: 10px 0 20px;
   .el-button {
@@ -110,6 +130,7 @@ export default {
   @include fontColor("font_color-2");
   /deep/th {
     @include fontColor("font_color");
+    font-weight: bold;
   }
   /deep/th,
   /deep/tr {
@@ -130,6 +151,12 @@ export default {
     tr {
       @include backgroundColor("background_color-2");
     }
+  }
+  .operation-btn {
+    color: $logocolor;
+  }
+  .operation-btn-span {
+    color: #ccc;
   }
 }
 </style>
