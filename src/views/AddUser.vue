@@ -4,7 +4,7 @@
       <el-button size="medium">添加用户</el-button>
       <el-button size="medium">用户设备</el-button>
     </el-row>
-    <el-table :data="userData.data.list"
+    <el-table :data="userList"
               style="width: 100%"
               row-class-name="table-row">
       <el-table-column prop="order"
@@ -15,7 +15,8 @@
                        label="用户名">
       </el-table-column>
       <el-table-column prop="phone"
-                       label="手机号码">
+                       label="手机号码"
+                       :formatter="formatter">
       </el-table-column>
       <el-table-column prop="email"
                        label="邮箱">
@@ -52,6 +53,7 @@ export default {
   data() {
     return {
       userData: [],
+      userList: [],
       currentPage: 1
     };
   },
@@ -63,7 +65,7 @@ export default {
       apiAddUser({ page: 1 }).then(res => {
         this.userData = res;
         this.currentPage = parseInt(this.userData.pagination.pageIndex);
-        console.log(this.userData);
+        this.userList = res.data.list;
       });
     },
     currentChange(current) {
@@ -71,10 +73,15 @@ export default {
       apiAddUser({ page: current }).then(res => {
         this.userData = res;
         this.currentPage = parseInt(this.userData.pagination.pageIndex);
+        this.userList = res.data.list;
       });
     },
     handleClick(row) {
       //console.log(row);
+    },
+
+    formatter(row) {
+      return row.phone.replace(/(\d{3})\d{4}(\d{4})/, "$1****$2");
     }
   }
 };
