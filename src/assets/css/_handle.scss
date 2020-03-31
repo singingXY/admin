@@ -30,6 +30,6 @@
 //获取边框颜色
 @mixin borderColor($color) {
   @include themeify {
-    border-color: themed($color);
+    border: themed($color);
   }
 }

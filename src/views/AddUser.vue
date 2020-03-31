@@ -128,6 +128,9 @@ export default {
   background: none;
   border-collapse: separate;
   @include fontColor("font_color-2");
+  &::before {
+    background: none;
+  }
   /deep/th {
     @include fontColor("font_color");
     font-weight: bold;
@@ -157,6 +160,38 @@ export default {
   }
   .operation-btn-span {
     color: #ccc;
+  }
+}
+</style>
+<style lang="scss">
+[data-theme="dark"] .el-table__body tr:hover > td {
+  background-color: #606088;
+}
+
+.el-pagination.is-background {
+  margin-top: 20px;
+  .btn-next,
+  .btn-prev,
+  .el-pager li {
+    @include fontColor("font_color-2");
+    @include backgroundColor("background_color-2");
+  }
+  .el-pager li:not(.disabled) {
+    &:hover {
+      color: $logocolor;
+    }
+    &.active {
+      background-color: $logocolor;
+      color: #fff;
+    }
+  }
+  .el-pagination__jump {
+    @include fontColor("font_color-2");
+  }
+  .el-input__inner {
+    border: none;
+    @include fontColor("font_color-2");
+    @include backgroundColor("background_color-2");
   }
 }
 </style>
