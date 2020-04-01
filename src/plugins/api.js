@@ -3,4 +3,5 @@
  */
 import { get, post } from './axios'
 
-export const apiAddUser = param => post('/addUser', param)
+export const apiUserList = param => post('/UserList', param)
+export const apiAddUser = param => post('/AddUser', param)

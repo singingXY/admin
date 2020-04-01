@@ -1,7 +1,8 @@
 <template>
   <div>
     <el-row class="add-btn">
-      <el-button size="medium">添加用户</el-button>
+      <el-button size="medium"
+                 @click="dialogFormVisible = true">添加用户</el-button>
       <el-button size="medium">用户设备</el-button>
     </el-row>
     <el-table :data="userList"
@@ -15,12 +16,12 @@
       </el-table-column>
       <el-table-column prop="username"
                        label="用户名"
-                       min-width="6%"
+                       min-width="5%"
                        align="center">
       </el-table-column>
       <el-table-column prop="phone"
                        label="手机号码"
-                       min-width="10%"
+                       min-width="8%"
                        align="center"
                        :formatter="formatter">
       </el-table-column>
@@ -61,17 +62,48 @@
                    @current-change="currentChange"
                    :current-page="currentPage">
     </el-pagination>
+
+    <el-dialog title="添加用户"
+               :visible.sync="dialogFormVisible">
+      <el-form :model="newUser"
+               inline
+               label-width="100px">
+        <el-form-item label="用户名">
+          <el-input v-model="newUser.username"></el-input>
+        </el-form-item>
+        <el-form-item label="手机号">
+          <el-input v-model="newUser.phone"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱">
+          <el-input v-model="newUser.email"></el-input>
+        </el-form-item>
+        <el-form-item label="公司名">
+          <el-input v-model="newUser.company"></el-input>
+        </el-form-item>
+        <el-form-item label="行业类型">
+          <el-input v-model="newUser.industry"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer"
+           class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary"
+                   @click="addUser">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { apiAddUser } from "@/plugins/api";
+import { apiUserList, apiAddUser } from "@/plugins/api";
 export default {
   data() {
     return {
       userData: [],
       userList: [],
-      currentPage: 1
+      currentPage: 1,
+      dialogFormVisible: false, // 添加用户对话框
+      newUser: {}
     };
   },
   created() {
@@ -79,7 +111,7 @@ export default {
   },
   methods: {
     onLoad() {
-      apiAddUser({ page: 1 }).then(res => {
+      apiUserList({ page: 1 }).then(res => {
         this.userData = res;
         this.currentPage = parseInt(this.userData.pagination.pageIndex);
         this.userList = res.data.list;
@@ -87,7 +119,7 @@ export default {
     },
     currentChange(current) {
       //当前页改变时触发请求
-      apiAddUser({ page: current }).then(res => {
+      apiUserList({ page: current }).then(res => {
         this.userData = res;
         this.currentPage = parseInt(this.userData.pagination.pageIndex);
         this.userList = res.data.list;
@@ -96,9 +128,22 @@ export default {
     handleClick(row) {
       console.log(row);
     },
-
     formatter(row) {
+      //手机号显示星号
       return row.phone.replace(/(\d{3})\d{4}(\d{4})/, "$1****$2");
+    },
+    addUser() {
+      //添加用户
+      apiAddUser(this.newUser).then(res => {
+        console.log(res);
+        if (res.status === 200) {
+          this.userData = res;
+          this.currentPage = parseInt(this.userData.pagination.pageIndex);
+          this.userList = res.data.list;
+          this.dialogFormVisible = false;
+          this.$message("添加成功");
+        }
+      });
     }
   }
 };
