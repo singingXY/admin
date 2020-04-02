@@ -135,7 +135,6 @@ export default {
     addUser() {
       //添加用户
       apiAddUser(this.newUser).then(res => {
-        console.log(res);
         if (res.status === 200) {
           this.userData = res;
           this.currentPage = parseInt(this.userData.pagination.pageIndex);
@@ -159,7 +158,6 @@ export default {
     border-color: $logocolor;
     color: $logocolor;
     border-radius: 8px;
-
     @include backgroundColor("background_color");
     &:focus,
     &:hover {
@@ -207,6 +205,21 @@ export default {
     color: #ccc;
   }
 }
+.el-dialog__wrapper {
+  /deep/ .el-dialog__title {
+    @include fontColor("font_color");
+  }
+  /deep/ .el-dialog,
+  /deep/ .el-pager li {
+    @include backgroundColor("background_color-2");
+  }
+  /deep/ .el-input__inner {
+    @include backgroundColor("background_color-2");
+  }
+  /deep/ .el-form-item__label {
+    @include fontColor("font_color-2");
+  }
+}
 </style>
 <style lang="scss">
 [data-theme="dark"] .el-table__body tr:hover > td {
@@ -220,15 +233,6 @@ export default {
   .el-pager li {
     @include fontColor("font_color-2");
     @include backgroundColor("background_color-2");
-  }
-  .el-pager li:not(.disabled) {
-    &:hover {
-      color: $logocolor;
-    }
-    &.active {
-      background-color: $logocolor;
-      color: #fff;
-    }
   }
   .el-pagination__jump {
     @include fontColor("font_color-2");
