@@ -20,7 +20,7 @@
       <i class="el-icon-ali-addchegnyuan"></i>
       <span slot="title">添加用户</span>
     </el-menu-item>
-    <el-menu-item index=2>
+    <el-menu-item index="AddEquipment">
       <i class="el-icon-ali-addshebei"></i>
       <span slot="title">添加设备</span></el-menu-item>
     <el-menu-item index=3>

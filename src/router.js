@@ -23,8 +23,7 @@ export default new Router({
     {
       path: '/AddEquipment',
       name: 'AddEquipment',
-      component: () =>
-        import(/* webpackChunkName: "AddUser" */ './views/AddUser.vue'),
+      component: () => import('./views/AddUser.vue'),
     },
   ],
 })
