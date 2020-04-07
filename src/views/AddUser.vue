@@ -6,7 +6,7 @@
       <el-button size="medium">用户设备</el-button>
     </el-row>
     <el-form :model="data"
-             ref="data"
+             ref="formData"
              size="small">
       <el-table :data="data.userList"
                 style="width: 100%"
@@ -66,17 +66,23 @@
             <span v-else>{{scope.row.company}}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="industry"
-                         label="行业类型"
+        <el-table-column label="行业类型"
                          min-width="6%"
                          align="center">
+          <template slot-scope="scope">
+            <el-form-item :prop="'userList.' + scope.$index + '.industry'"
+                          v-if="scope.row.isSet">
+              <el-input v-model="scope.row.industry"></el-input>
+            </el-form-item>
+            <span v-else>{{scope.row.industry}}</span>
+          </template>
         </el-table-column>
         <el-table-column label="操作"
                          min-width="8%"
                          align="center">
           <template slot-scope="scope">
             <el-button class="operation-btn"
-                       @click="saveDate(scope.row,scope.$index,data)"
+                       @click="saveDate(scope.row)"
                        type="text"
                        size="small"
                        v-if="scope.row.isSet">保存</el-button>
@@ -175,6 +181,9 @@ export default {
               validator: function(rule, value, callback) {
                 if (/^1[34578]\d{9}$/.test(value) == false) {
                   callback(new Error("请输入正确的手机号"));
+                } else {
+                  //此处callback必须有
+                  callback();
                 }
               },
               message: "请输入正确的手机号码",
@@ -201,7 +210,8 @@ export default {
             }
           ]
         }
-      }
+      },
+      currentRow: [] //当前编辑行
     };
   },
   created() {
@@ -215,22 +225,29 @@ export default {
         this.data.userList = res.data.list;
       });
     },
+    // 当前页改变时触发请求
     currentChange(current) {
-      //当前页改变时触发请求
       apiUserList({ page: current }).then(res => {
         this.userData = res;
         this.currentPage = parseInt(this.userData.pagination.pageIndex);
         this.data.userList = res.data.list;
       });
     },
+    // 编辑数据
     updateData(row) {
-      //修改数据
+      // 判断是否已经保存所有操作
+      for (let i of this.data.userList) {
+        // console.log("i.isSet", i.isSet, i.id, row.id);
+        if (i.isSet && i.id != row.id) {
+          this.$message("请先保存当前编辑项");
+          return false;
+        }
+      }
       this.$set(row, "isSet", "true");
     },
-    saveDate(row, data) {
-      // console.log(this.$refs[data]);
-      this.$refs[data].validate(valid => {
-        //   console.log(" valid=" + valid);
+    // 保存
+    saveDate(row) {
+      this.$refs["formData"].validate(valid => {
         if (valid) {
           apiAddUser(row).then(res => {
             if (res.status === 200) {
@@ -238,6 +255,11 @@ export default {
               this.currentPage = parseInt(this.userData.pagination.pageIndex);
               this.data.userList = res.data.list;
               this.$message("保存成功");
+              this.$set(row, "isSet", "false");
+              this.currentRow = [];
+            } else {
+              this.$message.error("保存失败");
+              return false;
             }
           });
         } else {
@@ -276,9 +298,7 @@ export default {
     },
     addUser(formName) {
       this.$refs[formName].validate(valid => {
-        // console.log(" valid" + valid);
         if (valid) {
-          //   console.log("验证通过");
           //添加用户
           apiAddUser(this.newUser).then(res => {
             if (res.status === 200) {
@@ -289,7 +309,7 @@ export default {
               this.$message("添加成功");
               this.newUser = [];
             } else {
-              //   console.log(res);
+              this.$message("添加失败");
             }
           });
         } else {
@@ -322,6 +342,7 @@ export default {
 }
 
 .el-table {
+  overflow: inherit;
   background: none;
   border-collapse: separate;
   @include fontColor("font_color-2");
@@ -367,8 +388,14 @@ export default {
     }
     /deep/.el-form-item__error {
       position: absolute;
-      bottom: 110%;
       top: inherit;
+      bottom: 115%;
+      border: solid 1px #f56c6c;
+      padding: 5px 11px;
+      border-radius: 5px;
+      text-align: left;
+      line-height: 1.2;
+      @include backgroundColor("background_color-2");
     }
   }
   /deep/.el-table__body-wrapper,
