@@ -386,16 +386,35 @@ export default {
         display: inherit;
       }
     }
+    // 错误提示
     /deep/.el-form-item__error {
       position: absolute;
       top: inherit;
       bottom: 115%;
       border: solid 1px #f56c6c;
-      padding: 5px 11px;
+      padding: 5px 8px;
       border-radius: 5px;
       text-align: left;
       line-height: 1.2;
       @include backgroundColor("background_color-2");
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: -4px;
+        left: 10%;
+        width: 5px;
+        height: 5px;
+        transform: rotate(45deg);
+        @include backgroundColor("background_color-2");
+        border-right: solid 1px #f56c6c;
+        border-bottom: solid 1px #f56c6c;
+      }
+    }
+    // input
+    /deep/.el-input__inner {
+      @include backgroundColor("background_color-2");
+      @include fontColor("font_color-2");
     }
   }
   /deep/.el-table__body-wrapper,
@@ -410,6 +429,7 @@ export default {
     color: #ccc;
   }
 }
+// 弹窗
 .el-dialog__wrapper {
   /deep/ .el-dialog__title {
     @include fontColor("font_color");
