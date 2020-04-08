@@ -7,9 +7,11 @@
            :collapse="isCollapse"
            @mouseenter.native="collapseOpen">
     <div class="menu-collapse"
-         @click="collapseClose"
-         v-if="!isCollapse">
-      <i class="el-icon-arrow-left"></i>
+         @click="collapseClose">
+      <i v-show="!isCollapse"
+         class="el-icon-arrow-left"></i>
+      <!-- <i v-show="isCollapse"
+         class="el-icon-arrow-right"></i> -->
     </div>
     <div class="logo">
       <img src="../assets/logo.svg"
@@ -98,14 +100,15 @@ export default {
 }
 /* 收起侧栏按钮 */
 .menu-collapse {
-  background: #43435d;
+  background: #242635;
   color: #c0c4cc;
+  font-size: 12px;
   position: absolute;
-  right: -1rem;
+  right: -13px;
   top: 50%;
   margin-top: -1.5rem;
-  height: 3rem;
-  line-height: 3rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
   border-radius: 0 1rem 1rem 0;
   cursor: pointer;
   z-index: 1;
