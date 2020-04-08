@@ -25,5 +25,10 @@ export default new Router({
       name: 'AddEquipment',
       component: () => import('./views/AddUser.vue'),
     },
+    {
+      path: '/QA',
+      name: 'QA',
+      component: () => import('./views/QA.vue'),
+    },
   ],
 })

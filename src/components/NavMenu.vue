@@ -34,7 +34,7 @@
     <el-menu-item index=5>
       <i class="el-icon-ali-xiugai"></i>
       <span slot="title">修改用户信息</span></el-menu-item>
-    <el-menu-item index=6>
+    <el-menu-item index="QA">
       <i class="el-icon-ali-mokuaixuanze"></i>
       <span slot="title">Q&A模块</span></el-menu-item>
     <el-menu-item index=7>
