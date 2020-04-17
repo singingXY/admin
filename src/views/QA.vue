@@ -16,7 +16,15 @@
             <h5>{{datas.equipment}}</h5>
             <p>{{datas.content}}</p>
           </div>
-          <i class="el-icon-more"></i>
+          <el-dropdown>
+
+            <i class="el-icon-more"></i>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>处理</el-dropdown-item>
+              <el-dropdown-item>完成</el-dropdown-item>
+              <el-dropdown-item>忽略</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </li>
 
         <li v-if="data.length==0">
@@ -41,7 +49,7 @@ export default {
   methods: {
     onLoad() {
       apiQA().then(res => {
-        console.log(res);
+        //console.log(res);
         this.qaData = res;
       });
     }
