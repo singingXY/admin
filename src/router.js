@@ -26,6 +26,11 @@ export default new Router({
       component: () => import('./views/AddUser.vue'),
     },
     {
+      path: '/ModifyUser',
+      name: 'ModifyUser',
+      component: () => import('./views/ModifyUser.vue'),
+    },
+    {
       path: '/QA',
       name: 'QA',
       component: () => import('./views/QA.vue'),

@@ -31,7 +31,7 @@
     <el-menu-item index=4>
       <i class="el-icon-ali-shebeiliebiao"></i>
       <span slot="title">设备列表</span></el-menu-item>
-    <el-menu-item index=5>
+    <el-menu-item index="ModifyUser">
       <i class="el-icon-ali-xiugai"></i>
       <span slot="title">修改用户信息</span></el-menu-item>
     <el-menu-item index="QA">
