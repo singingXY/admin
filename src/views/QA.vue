@@ -49,7 +49,6 @@ export default {
   methods: {
     onLoad() {
       apiQA().then(res => {
-        //console.log(res);
         this.qaData = res;
       });
     }
@@ -127,6 +126,9 @@ export default {
       flex: 0 0 34px;
       text-align: right;
     }
+  }
+  .el-dropdown {
+    @include fontColor("font_color-2");
   }
 }
 </style>
