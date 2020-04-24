@@ -67,7 +67,7 @@
           </template>
         </el-table-column>
         <el-table-column label="行业类型"
-                         min-width="6%"
+                         min-width="5%"
                          align="center">
           <template slot-scope="scope">
             <el-form-item :prop="'userList.' + scope.$index + '.industry'"
@@ -361,6 +361,7 @@ export default {
   /deep/.el-table__body {
     border-spacing: 0px 10px;
     td {
+      padding: 8px 0;
       border-bottom: 0;
       &:first-child {
         border-radius: 8px 0 0 8px;
