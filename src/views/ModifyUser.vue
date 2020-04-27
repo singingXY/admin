@@ -24,9 +24,11 @@
       <el-col :span="12">
         <el-card shadow="always">
           <div slot="header">
-            <span>卡片名称</span>
+            <span>设备运行频率</span>
             <el-button type="text"><i class="el-icon-more"></i></el-button>
           </div>
+          <div id="myChart"
+               :style="{width: '300px', height: '300px'}"></div>
         </el-card>
       </el-col>
       <el-col :span="6">
@@ -51,8 +53,71 @@
     </el-row>
   </div>
 </template>
+<script>
+export default {
+  mounted() {
+    this.drawLine();
+  },
+  methods: {
+    drawLine() {
+      // 基于准备好的dom，初始化echarts实例
+      let myChart = this.$echarts.init(document.getElementById("myChart"));
+      // 绘制图表
+      myChart.setOption({
+        xAxis: {
+          type: "category",
+          boundaryGap: false,
+          data: ["1月", "2月", "3月", "4月", "5月", "6月", "7月"]
+        },
+        yAxis: {
+          type: "value"
+        },
+        series: [
+          {
+            type: "line",
+            smooth: true,
+            data: [59, 20, 36, 100, 10, 20, 234],
+            areaStyle: {
+              color: "rgba(244, 55, 51, 1)",
+              // {
+              //   type: "linear",
+              //   x: 0,
+              //   y: 0,
+              //   x2: 0,
+              //   y2: 1,
+              //   colorStops: [
+              //     {
+              //       offset: 0,
+              //       color: "rgba(244,55,51,1)" // 0% 处的颜色
+              //     },
+              //     {
+              //       offset: 1,
+              //       color: "rgba(184,63,70,.6)" // 100% 处的颜色
+              //     }
+              //   ]
+              // }
+              opacity: 1
+            }
+          },
+          {
+            type: "line",
+            smooth: true,
+            data: [220, 182, 191, 234, 290, 330, 310],
+            areaStyle: {
+              color: "rgba(34, 120, 171, 1)"
+            }
+          }
+        ]
+      });
+    }
+  }
+};
+</script>
 <style lang="scss" scoped>
 .modify-user {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   .el-card {
     border: none;
     color: #ddd;
@@ -69,6 +134,7 @@
     justify-content: stretch;
     .el-card {
       min-height: 300px;
+      height: 100%;
     }
     .user-msg {
       text-align: center;
