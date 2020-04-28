@@ -29,7 +29,7 @@
             <el-button type="text"><i class="el-icon-more"></i></el-button>
           </div>
           <div id="myChart"
-               :style="{width: '300px', height: '300px'}"></div>
+               :style="{width: '100%', height: '230px'}"></div>
         </el-card>
       </el-col>
       <el-col :span="6">
@@ -70,24 +70,32 @@ export default {
       myChart.setOption({
         xAxis: {
           type: "category",
+          splitLine: { show: false },
+          axisTick: { show: false },
           boundaryGap: false,
           data: ["1月", "2月", "3月", "4月", "5月", "6月", "7月"]
         },
         yAxis: {
-          type: "value"
+          type: "value",
+          axisLine: { show: false },
+          axisTick: { show: false }
+        },
+        legend: {
+          bottom: "3%",
+          icon: "rect"
         },
         series: [
           {
+            name: "PLC",
             type: "line",
-            smooth: true,
             data: [380, 310, 405, 305, 360, 310, 390, 320, 370],
             areaStyle: {
               //opacity: 1
             }
           },
           {
+            name: "伺服",
             type: "line",
-            smooth: true,
             data: [300, 380, 300, 380, 300, 390, 280, 390, 375],
             areaStyle: {
               //  opacity: 1
