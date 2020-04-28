@@ -11,6 +11,8 @@ import '@/assets/css/iconfont.css'
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
 
+import '@/assets/echarts/dark.js' // echarts主题
+
 Vue.config.productionTip = false
 
 new Vue({

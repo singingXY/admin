@@ -23,7 +23,8 @@
       </el-col>
       <el-col :span="12">
         <el-card shadow="always">
-          <div slot="header">
+          <div slot="header"
+               class="card_header">
             <span>设备运行频率</span>
             <el-button type="text"><i class="el-icon-more"></i></el-button>
           </div>
@@ -61,7 +62,10 @@ export default {
   methods: {
     drawLine() {
       // 基于准备好的dom，初始化echarts实例
-      let myChart = this.$echarts.init(document.getElementById("myChart"));
+      let myChart = this.$echarts.init(
+        document.getElementById("myChart"),
+        "dark"
+      );
       // 绘制图表
       myChart.setOption({
         xAxis: {
@@ -76,35 +80,17 @@ export default {
           {
             type: "line",
             smooth: true,
-            data: [59, 20, 36, 100, 10, 20, 234],
+            data: [380, 310, 405, 305, 360, 310, 390, 320, 370],
             areaStyle: {
-              color: "rgba(244, 55, 51, 1)",
-              // {
-              //   type: "linear",
-              //   x: 0,
-              //   y: 0,
-              //   x2: 0,
-              //   y2: 1,
-              //   colorStops: [
-              //     {
-              //       offset: 0,
-              //       color: "rgba(244,55,51,1)" // 0% 处的颜色
-              //     },
-              //     {
-              //       offset: 1,
-              //       color: "rgba(184,63,70,.6)" // 100% 处的颜色
-              //     }
-              //   ]
-              // }
-              opacity: 1
+              //opacity: 1
             }
           },
           {
             type: "line",
             smooth: true,
-            data: [220, 182, 191, 234, 290, 330, 310],
+            data: [300, 380, 300, 380, 300, 390, 280, 390, 375],
             areaStyle: {
-              color: "rgba(34, 120, 171, 1)"
+              //  opacity: 1
             }
           }
         ]
@@ -127,6 +113,13 @@ export default {
     .el-button--text {
       @include fontColor("font_color-2");
       padding: 0;
+    }
+    /deep/ .el-card__header {
+      border-bottom: 0;
+    }
+    .card_header {
+      display: flex;
+      justify-content: space-between;
     }
   }
   .row1 {
