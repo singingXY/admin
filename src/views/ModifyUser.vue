@@ -43,7 +43,31 @@
             class="row2">
       <el-col :span="12">
         <el-card shadow="always">
-          <h4>产品周期</h4>
+          <div slot="header"
+               class="card_header">
+            <span>产品周期</span>
+            <el-button type="text"><i class="el-icon-more"></i></el-button>
+          </div>
+          <el-row :gutter="20"
+                  type="flex"
+                  justify="space-around"
+                  class="product-cycle">
+            <el-progress type="circle"
+                         :percentage="50"
+                         stroke-width="8"
+                         width="90"
+                         color="#e43"></el-progress>
+            <el-progress type="circle"
+                         :percentage="75"
+                         stroke-width="8"
+                         width="90"
+                         color="#e43"></el-progress>
+            <el-progress type="circle"
+                         :percentage="45"
+                         stroke-width="8"
+                         width="90"
+                         color="#e43"></el-progress>
+          </el-row>
         </el-card>
       </el-col>
       <el-col :span="12">
@@ -105,9 +129,7 @@ export default {
             name: "PLC",
             type: "line",
             data: [380, 310, 405, 305, 360, 310, 390, 320, 370],
-            areaStyle: {
-              //opacity: 1
-            },
+            areaStyle: {},
             itemStyle: { opacity: 0 },
             lineStyle: { opacity: 0 }
           },
@@ -115,9 +137,7 @@ export default {
             name: "伺服",
             type: "line",
             data: [300, 380, 300, 380, 300, 390, 280, 390, 375],
-            areaStyle: {
-              //  opacity: 1
-            },
+            areaStyle: {},
             itemStyle: { opacity: 0 },
             lineStyle: { opacity: 0 }
           }
@@ -194,5 +214,14 @@ export default {
 .operation-frequency {
   width: 100%;
   height: 240px;
+}
+.product-cycle {
+  /deep/ .el-progress__text {
+    font-size: 16px !important;
+    @include fontColor("font_color");
+  }
+  /deep/.el-progress-circle__track {
+    stroke: #8282825c;
+  }
 }
 </style>
