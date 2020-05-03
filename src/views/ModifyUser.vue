@@ -29,7 +29,7 @@
             <el-button type="text"><i class="el-icon-more"></i></el-button>
           </div>
           <div id="myChart"
-               :style="{width: '100%', height: '230px'}"></div>
+               class="operation-frequency"></div>
         </el-card>
       </el-col>
       <el-col :span="6">
@@ -80,9 +80,21 @@ export default {
           axisLine: { show: false },
           axisTick: { show: false }
         },
+        grid: {
+          left: "6%",
+          top: "3%",
+          height: "75%",
+          width: "100%"
+        },
+
         legend: {
-          bottom: "3%",
-          icon: "rect"
+          textStyle: {
+            color: "#9090a2"
+          },
+          bottom: "0",
+          icon: "rect",
+          itemWidth: 10,
+          itemHeight: 10
         },
         series: [
           {
@@ -91,7 +103,9 @@ export default {
             data: [380, 310, 405, 305, 360, 310, 390, 320, 370],
             areaStyle: {
               //opacity: 1
-            }
+            },
+            itemStyle: { opacity: 0 },
+            lineStyle: { opacity: 0 }
           },
           {
             name: "伺服",
@@ -99,7 +113,9 @@ export default {
             data: [300, 380, 300, 380, 300, 390, 280, 390, 375],
             areaStyle: {
               //  opacity: 1
-            }
+            },
+            itemStyle: { opacity: 0 },
+            lineStyle: { opacity: 0 }
           }
         ]
       });
@@ -170,5 +186,9 @@ export default {
       height: 210px;
     }
   }
+}
+.operation-frequency {
+  width: 100%;
+  height: 240px;
 }
 </style>
