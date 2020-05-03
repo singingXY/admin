@@ -66,6 +66,10 @@ export default {
         document.getElementById("myChart"),
         "dark"
       );
+      //窗口改变后重绘
+      window.onresize = function() {
+        myChart.resize();
+      };
       // 绘制图表
       myChart.setOption({
         xAxis: {
