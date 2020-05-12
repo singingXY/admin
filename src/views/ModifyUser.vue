@@ -221,7 +221,7 @@ export default {
     @include fontColor("font_color");
   }
   /deep/.el-progress-circle__track {
-    stroke: #8282825c;
+    stroke: rgba(145, 145, 197, 0.2);
   }
 }
 </style>
