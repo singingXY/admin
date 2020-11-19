@@ -48,7 +48,10 @@
             <span>产品周期</span>
             <el-button type="text"><i class="el-icon-more"></i></el-button>
           </div>
-          <el-row :gutter="20"
+
+          <div id="myChartPie"
+               class="product-cycle"></div>
+          <!-- <el-row :gutter="20"
                   type="flex"
                   justify="space-around"
                   class="product-cycle">
@@ -67,7 +70,7 @@
                          stroke-width="8"
                          width="90"
                          color="#e43"></el-progress>
-          </el-row>
+          </el-row> -->
         </el-card>
       </el-col>
       <el-col :span="12">
@@ -82,6 +85,7 @@
 export default {
   mounted() {
     this.drawLine();
+    this.drawPie();
   },
   methods: {
     drawLine() {
@@ -91,7 +95,7 @@ export default {
         "dark"
       );
       //窗口改变后重绘
-      window.onresize = function() {
+      window.onresize = function () {
         myChart.resize();
       };
       // 绘制图表
@@ -101,28 +105,28 @@ export default {
           splitLine: { show: false },
           axisTick: { show: false },
           boundaryGap: false,
-          data: ["1月", "2月", "3月", "4月", "5月", "6月", "7月"]
+          data: ["1月", "2月", "3月", "4月", "5月", "6月", "7月"],
         },
         yAxis: {
           type: "value",
           axisLine: { show: false },
-          axisTick: { show: false }
+          axisTick: { show: false },
         },
         grid: {
           left: "6%",
           top: "3%",
           height: "75%",
-          width: "100%"
+          width: "100%",
         },
 
         legend: {
           textStyle: {
-            color: "#9090a2"
+            color: "#9090a2",
           },
           bottom: "0",
           icon: "rect",
           itemWidth: 10,
-          itemHeight: 10
+          itemHeight: 10,
         },
         series: [
           {
@@ -131,7 +135,7 @@ export default {
             data: [380, 310, 405, 305, 360, 310, 390, 320, 370],
             areaStyle: {},
             itemStyle: { opacity: 0 },
-            lineStyle: { opacity: 0 }
+            lineStyle: { opacity: 0 },
           },
           {
             name: "伺服",
@@ -139,12 +143,127 @@ export default {
             data: [300, 380, 300, 380, 300, 390, 280, 390, 375],
             areaStyle: {},
             itemStyle: { opacity: 0 },
-            lineStyle: { opacity: 0 }
-          }
-        ]
+            lineStyle: { opacity: 0 },
+          },
+        ],
       });
-    }
-  }
+    },
+    drawPie() {
+      // 基于准备好的dom，初始化echarts实例
+      let myChart = this.$echarts.init(
+        document.getElementById("myChartPie"),
+        "dark"
+      );
+      //窗口改变后重绘
+      window.onresize = function () {
+        myChart.resize();
+      };
+      var data = [
+        { name: "HMI", value: 50 },
+        { name: "PLC", value: 75 },
+        { name: "伺服", value: 45 },
+      ];
+      var polar = [];
+      var angleAxis = [];
+      var radiusAxis = [];
+      var series = [];
+      var titles = [];
+      for (var i = 0; i < data.length; i++) {
+        polar.push({
+          center: [15 + 33 * (i % 3) + "%", "30%"],
+          radius: "100%",
+        });
+        angleAxis.push({
+          polarIndex: i,
+          max: 100,
+          clockwise: true, // 逆时针
+          show: false, // 隐藏刻度线,
+        });
+        radiusAxis.push({
+          type: "category",
+          polarIndex: i,
+          axisLine: { show: false },
+        });
+        series.push({
+          type: "bar",
+          showBackground: true,
+          backgroundStyle: { color: "rgba(159,159,204,.2)" },
+          coordinateSystem: "polar",
+          roundCap: true,
+          barWidth: 9,
+          polarIndex: i,
+          name: data[i].name,
+          data: [data[i].value],
+          itemStyle: { shadowBlur: 2 },
+        });
+        titles.push({
+          text: data[i].name,
+          textStyle: {
+            fontSize: 14,
+            fontWeight: "normal",
+          },
+        });
+      }
+      series[0].itemStyle = {
+        color: {
+          type: "linear",
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [
+            { offset: 0, color: "#ef4b4c" },
+            { offset: 1, color: "#fda963" },
+          ],
+        },
+        shadowColor: "#ef6251",
+      };
+      series[1].itemStyle = {
+        color: {
+          type: "linear",
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [
+            { offset: 0, color: "#6d5cff" },
+            { offset: 1, color: "#ac8aff" },
+          ],
+        },
+        shadowColor: "#7f6df7",
+      };
+      series[2].itemStyle = {
+        color: {
+          type: "linear",
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [
+            { offset: 0, color: "#61a92b" },
+            { offset: 1, color: "#a5da4a" },
+          ],
+        },
+        shadowColor: "#80ca37",
+      };
+      // 绘制图表
+      myChart.setOption({
+        title: titles,
+        polar: polar,
+        tooltip: {
+          formatter: "{c}%",
+        },
+        labelLine: { show: false },
+        angleAxis: angleAxis,
+        radiusAxis: radiusAxis,
+        series: series,
+        left: 0,
+        top: 0,
+        right: 0,
+        bottom: 0,
+      });
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -214,6 +333,10 @@ export default {
 .operation-frequency {
   width: 100%;
   height: 240px;
+}
+.product-cycle {
+  width: 100%;
+  height: 150px;
 }
 .product-cycle {
   /deep/ .el-progress__text {
