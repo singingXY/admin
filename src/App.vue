@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       searchText: "",
-      theme: "dark"
+      theme: "dark",
     };
   },
   created() {
@@ -53,11 +53,12 @@ export default {
       this.theme = index ? "light" : "dark";
       localStorage.setItem("theme", this.theme);
       window.document.documentElement.setAttribute("data-theme", this.theme);
-    }
+      location.reload();
+    },
   },
   components: {
-    NavMenu
-  }
+    NavMenu,
+  },
 };
 </script>
 

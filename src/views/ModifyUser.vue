@@ -69,8 +69,9 @@ export default {
   },
   methods: {
     drawChart(dom, option) {
+      let mytheme = localStorage.getItem("theme");
       // 基于准备好的dom，初始化echarts实例
-      let myChart = this.$echarts.init(document.getElementById(dom), "dark");
+      let myChart = this.$echarts.init(document.getElementById(dom), mytheme);
       let resizeDiv = document.getElementById(dom);
       // 绘制图表
       myChart.setOption(option);
@@ -101,7 +102,6 @@ export default {
           height: "75%",
           width: "100%",
         },
-
         legend: {
           textStyle: {
             color: "#9090a2",
@@ -111,6 +111,7 @@ export default {
           itemWidth: 10,
           itemHeight: 10,
         },
+        tooltip: { show: true, trigger: "axis" },
         series: [
           {
             name: "PLC",
