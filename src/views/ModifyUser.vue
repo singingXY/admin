@@ -33,8 +33,7 @@
         </el-card>
       </el-col>
       <el-col :span="6">
-        <el-card shadow="always">
-        </el-card>
+        <el-card shadow="always"></el-card>
       </el-col>
     </el-row>
     <el-row :gutter="26"
@@ -51,26 +50,6 @@
 
           <div id="myChartPie"
                class="product-cycle"></div>
-          <!-- <el-row :gutter="20"
-                  type="flex"
-                  justify="space-around"
-                  class="product-cycle">
-            <el-progress type="circle"
-                         :percentage="50"
-                         stroke-width="8"
-                         width="90"
-                         color="#e43"></el-progress>
-            <el-progress type="circle"
-                         :percentage="75"
-                         stroke-width="8"
-                         width="90"
-                         color="#e43"></el-progress>
-            <el-progress type="circle"
-                         :percentage="45"
-                         stroke-width="8"
-                         width="90"
-                         color="#e43"></el-progress>
-          </el-row> -->
         </el-card>
       </el-col>
       <el-col :span="12">
@@ -82,24 +61,28 @@
   </div>
 </template>
 <script>
+import { EleResize } from "../plugins/esresize";
 export default {
   mounted() {
-    this.drawLine();
-    this.drawPie();
+    this.setChart1();
+    this.setChart2();
   },
   methods: {
-    drawLine() {
+    drawChart(dom, option) {
       // 基于准备好的dom，初始化echarts实例
-      let myChart = this.$echarts.init(
-        document.getElementById("myChart"),
-        "dark"
-      );
-      //窗口改变后重绘
-      window.onresize = function () {
+      let myChart = this.$echarts.init(document.getElementById(dom), "dark");
+      let resizeDiv = document.getElementById(dom);
+      // 绘制图表
+      myChart.setOption(option);
+      let listener = function () {
+        //console.log("resize");
         myChart.resize();
       };
-      // 绘制图表
-      myChart.setOption({
+      EleResize.on(resizeDiv, listener);
+    },
+    setChart1() {
+      let dom = "myChart";
+      let option = {
         xAxis: {
           type: "category",
           splitLine: { show: false },
@@ -146,18 +129,11 @@ export default {
             lineStyle: { opacity: 0 },
           },
         ],
-      });
-    },
-    drawPie() {
-      // 基于准备好的dom，初始化echarts实例
-      let myChart = this.$echarts.init(
-        document.getElementById("myChartPie"),
-        "dark"
-      );
-      //窗口改变后重绘
-      window.onresize = function () {
-        myChart.resize();
       };
+      this.drawChart(dom, option);
+    },
+    setChart2() {
+      let dom = "myChartPie";
       var data = [
         { name: "HMI", value: 50 },
         { name: "PLC", value: 75 },
@@ -168,9 +144,14 @@ export default {
       var radiusAxis = [];
       var series = [];
       var titles = [];
+      var barLinear = [
+        ["#ef4b4c", "#fda963", "#ef6251"],
+        ["#6d5cff", "#ac8aff", "#7f6df7"],
+        ["#61a92b", "#a5da4a", "#80ca37"],
+      ];
       for (var i = 0; i < data.length; i++) {
         polar.push({
-          center: [15 + 33 * (i % 3) + "%", "30%"],
+          center: [17 + 33 * (i % 3) + "%", "30%"],
           radius: "100%",
         });
         angleAxis.push({
@@ -194,65 +175,36 @@ export default {
           polarIndex: i,
           name: data[i].name,
           data: [data[i].value],
-          itemStyle: { shadowBlur: 2 },
-        });
-        titles.push({
-          text: data[i].name,
-          textStyle: {
-            fontSize: 14,
-            fontWeight: "normal",
+          itemStyle: {
+            color: {
+              type: "linear",
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [
+                { offset: 0, color: barLinear[i][0] },
+                { offset: 1, color: barLinear[i][1] },
+              ],
+            },
+            shadowColor: barLinear[i][2],
+            shadowBlur: 2,
           },
         });
+        titles.push({
+          text: data[i].value + "%",
+          top: "25%",
+          left: 13.5 + 33.3 * (i % 3) + "%",
+          textStyle: { fontSize: 14, fontWeight: "normal" },
+          subtext: data[i].name,
+          subtextStyle: {},
+          itemGap: 45,
+        });
       }
-      series[0].itemStyle = {
-        color: {
-          type: "linear",
-          x: 0,
-          y: 0,
-          x2: 0,
-          y2: 1,
-          colorStops: [
-            { offset: 0, color: "#ef4b4c" },
-            { offset: 1, color: "#fda963" },
-          ],
-        },
-        shadowColor: "#ef6251",
-      };
-      series[1].itemStyle = {
-        color: {
-          type: "linear",
-          x: 0,
-          y: 0,
-          x2: 0,
-          y2: 1,
-          colorStops: [
-            { offset: 0, color: "#6d5cff" },
-            { offset: 1, color: "#ac8aff" },
-          ],
-        },
-        shadowColor: "#7f6df7",
-      };
-      series[2].itemStyle = {
-        color: {
-          type: "linear",
-          x: 0,
-          y: 0,
-          x2: 0,
-          y2: 1,
-          colorStops: [
-            { offset: 0, color: "#61a92b" },
-            { offset: 1, color: "#a5da4a" },
-          ],
-        },
-        shadowColor: "#80ca37",
-      };
-      // 绘制图表
-      myChart.setOption({
+      let option = {
         title: titles,
         polar: polar,
-        tooltip: {
-          formatter: "{c}%",
-        },
+        tooltip: { formatter: "{c}%" },
         labelLine: { show: false },
         angleAxis: angleAxis,
         radiusAxis: radiusAxis,
@@ -261,7 +213,8 @@ export default {
         top: 0,
         right: 0,
         bottom: 0,
-      });
+      };
+      this.drawChart(dom, option);
     },
   },
 };
@@ -329,22 +282,13 @@ export default {
       height: 210px;
     }
   }
-}
-.operation-frequency {
-  width: 100%;
-  height: 240px;
-}
-.product-cycle {
-  width: 100%;
-  height: 150px;
-}
-.product-cycle {
-  /deep/ .el-progress__text {
-    font-size: 16px !important;
-    @include fontColor("font_color");
+  .operation-frequency {
+    width: 100%;
+    height: 240px;
   }
-  /deep/.el-progress-circle__track {
-    stroke: rgba(145, 145, 197, 0.2);
+  .product-cycle {
+    width: 100%;
+    height: 150px;
   }
 }
 </style>

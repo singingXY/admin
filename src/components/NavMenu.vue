@@ -1,17 +1,23 @@
 <template>
-  <el-menu class="el-menu"
+  <!-- <el-menu class="el-menu"
            background-color="#242635"
            text-color="#c0c4cc"
            active-text-color="#fff"
            router
            :collapse="isCollapse"
-           @mouseenter.native="collapseOpen">
+           @mouseenter.native="collapseOpen"> -->
+  <el-menu class="el-menu"
+           background-color="#242635"
+           text-color="#c0c4cc"
+           active-text-color="#fff"
+           router
+           :collapse="isCollapse">
     <div class="menu-collapse"
-         @click="collapseClose">
+         @click="isCollapse =!isCollapse">
       <i v-show="!isCollapse"
          class="el-icon-arrow-left"></i>
-      <!-- <i v-show="isCollapse"
-         class="el-icon-arrow-right"></i> -->
+      <i v-show="isCollapse"
+         class="el-icon-arrow-right"></i>
     </div>
     <div class="logo">
       <img src="../assets/logo.svg"
@@ -24,22 +30,28 @@
     </el-menu-item>
     <el-menu-item index="AddEquipment">
       <i class="el-icon-ali-addshebei"></i>
-      <span slot="title">添加设备</span></el-menu-item>
+      <span slot="title">添加设备</span>
+    </el-menu-item>
     <el-menu-item index=3>
       <i class="el-icon-ali-shebeimap"></i>
-      <span slot="title">设备地图</span></el-menu-item>
+      <span slot="title">设备地图</span>
+    </el-menu-item>
     <el-menu-item index=4>
       <i class="el-icon-ali-shebeiliebiao"></i>
-      <span slot="title">设备列表</span></el-menu-item>
+      <span slot="title">设备列表</span>
+    </el-menu-item>
     <el-menu-item index="ModifyUser">
       <i class="el-icon-ali-xiugai"></i>
-      <span slot="title">修改用户信息</span></el-menu-item>
+      <span slot="title">修改用户信息</span>
+    </el-menu-item>
     <el-menu-item index="QA">
       <i class="el-icon-ali-mokuaixuanze"></i>
-      <span slot="title">Q&A模块</span></el-menu-item>
+      <span slot="title">Q&A模块</span>
+    </el-menu-item>
     <el-menu-item index=7>
       <i class="el-icon-ali-fankui"></i>
-      <span slot="title">用户信息反馈</span></el-menu-item>
+      <span slot="title">用户信息反馈</span>
+    </el-menu-item>
 
   </el-menu>
 </template>
@@ -48,11 +60,11 @@
 export default {
   name: "NavMenu",
   props: {
-    msg: String
+    msg: String,
   },
   data() {
     return {
-      isCollapse: true
+      isCollapse: true,
     };
   },
   methods: {
@@ -61,8 +73,8 @@ export default {
     },
     collapseClose() {
       this.isCollapse = true;
-    }
-  }
+    },
+  },
 };
 </script>
 
