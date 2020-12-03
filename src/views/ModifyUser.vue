@@ -32,8 +32,22 @@
                class="operation-frequency"></div>
         </el-card>
       </el-col>
-      <el-col :span="6">
-        <el-card shadow="always"></el-card>
+      <el-col :span="6"
+              class="col3">
+        <el-card shadow="always">
+          <h5>PLC-120系列</h5>
+          <p>当前以太网通讯功能，通信速达率达到</p>
+          <div id="kbps1"
+               class="kbps"></div>
+          <span>CPU126-2Q DC/DC/DC</span>
+        </el-card>
+        <el-card shadow="always">
+          <h5>HMI-120系列</h5>
+          <p>当前以太网通讯功能，通信速达率达到</p>
+          <div id="kbps2"
+               class="kbps"></div>
+          <span>CPU126-2Q DC/DC/DC</span>
+        </el-card>
       </el-col>
     </el-row>
     <el-row :gutter="26"
@@ -55,6 +69,9 @@
       <el-col :span="12">
         <el-card shadow="always">
           <h4>通信波特率</h4>
+
+          <div id="myChartBar"
+               class="product-cycle"></div>
         </el-card>
       </el-col>
     </el-row>
@@ -66,10 +83,14 @@ export default {
   mounted() {
     this.setChart1();
     this.setChart2();
+    this.setChart3();
+    this.setChart4();
+    this.setChart5();
   },
   methods: {
     drawChart(dom, option) {
-      let mytheme = localStorage.getItem("theme");
+      //let mytheme = localStorage.getItem("theme");
+      let mytheme = "dark";
       // 基于准备好的dom，初始化echarts实例
       let myChart = this.$echarts.init(document.getElementById(dom), mytheme);
       let resizeDiv = document.getElementById(dom);
@@ -217,6 +238,129 @@ export default {
       };
       this.drawChart(dom, option);
     },
+    setChart3() {
+      let dom = "myChartBar";
+      let option = {
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            type: "line",
+            lineStyle: {
+              opacity: 0,
+            },
+          },
+          formatter: function (params) {
+            return params[0].name + ": " + params[0].value;
+          },
+        },
+        grid: {
+          left: "30",
+          right: "0",
+          bottom: "10",
+          top: "30",
+        },
+        xAxis: {
+          type: "category",
+          show: false,
+          data: ["A", "B", "C", "D", "E", "F", "G", "H", "I"],
+          splitLine: { show: false },
+        },
+        yAxis: [
+          {
+            type: "value",
+            splitLine: { show: false },
+            axisLine: { show: false },
+            axisTick: { show: false },
+            interval: 100,
+            max: 400,
+          },
+          {
+            type: "value",
+            splitLine: { show: false },
+            axisLine: { show: false },
+            axisTick: { show: false },
+            interval: 100,
+          },
+        ],
+        series: [
+          {
+            name: "值",
+            type: "bar",
+            data: [120, 190, 130, 240, 320, 280, 250, 300, 120],
+            itemStyle: {
+              barBorderRadius: [15, 15, 0, 0],
+              color: "rgba(84, 164, 253, 1)",
+            },
+            zlevel: 9,
+            yAxisIndex: 0,
+            barWidth: 10,
+          },
+          {
+            name: "背景",
+            type: "bar",
+            data: [400, 400, 400, 400, 400, 400, 400, 400, 400],
+            itemStyle: {
+              barBorderRadius: [15, 15, 0, 0],
+              color: "rgba(159,159,204,.2)",
+            },
+            zlevel: 11,
+            yAxisIndex: 1,
+            barWidth: 10,
+            barGap: "-100%",
+          },
+        ],
+      };
+      this.drawChart(dom, option);
+    },
+    setChart4() {
+      let dom = "kbps1";
+      let option = {
+        xAxis: {
+          type: "value",
+          show: false,
+          splitLine: { show: false },
+        },
+        yAxis: {
+          type: "category",
+          splitLine: { show: false },
+          axisLine: { show: false },
+          axisTick: { show: false },
+        },
+        series: [
+          {
+            name: "值",
+            type: "bar",
+            data: [120, 190, 130, 240, 320, 280, 250, 300, 120],
+            itemStyle: {
+              barBorderRadius: [10, 10, 0, 0],
+              color: "rgba(84, 164, 253, 1)",
+            },
+            zlevel: 9,
+            xAxisIndex: 0,
+            barWidth: 10,
+          },
+          {
+            name: "背景",
+            type: "bar",
+            data: [],
+            itemStyle: {
+              barBorderRadius: [10, 10, 0, 0],
+              color: "rgba(159,159,204,.2)",
+            },
+            zlevel: 11,
+            xAxisIndex: 1,
+            barWidth: 6,
+            barGap: "-100%",
+          },
+        ],
+      };
+      this.drawChart(dom, option);
+    },
+    setChart5() {
+      let dom = "kbps2";
+      let option = {};
+      this.drawChart(dom, option);
+    },
   },
 };
 </script>
@@ -249,6 +393,15 @@ export default {
     .el-card {
       min-height: 300px;
       height: 100%;
+    }
+    .col3 {
+      .el-card {
+        height: 45%;
+        min-height: 140px;
+      }
+      :first-child {
+        margin-bottom: 33px;
+      }
     }
     .user-msg {
       text-align: center;
@@ -290,6 +443,10 @@ export default {
   .product-cycle {
     width: 100%;
     height: 150px;
+  }
+  .kbps {
+    width: 100%;
+    height: 100px;
   }
 }
 </style>
