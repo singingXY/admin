@@ -38,7 +38,8 @@ var EleResize = {
     obj.data = 'about:blank'
     return obj
   },
-  _handleObjectLoad: function (evt) {
+  //_handleObjectLoad: function (evt) {
+  _handleObjectLoad: function () {
     this.contentDocument.defaultView.__resizeTrigger__ = this.__resizeElement__
     this.contentDocument.defaultView.addEventListener('resize', EleResize._handleResize)
   }
