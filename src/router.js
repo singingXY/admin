@@ -35,5 +35,15 @@ export default new Router({
       name: 'QA',
       component: () => import('./views/QA.vue'),
     },
+    {
+      path: '/QAuser',
+      name: 'QAuser',
+      component: () => import('./views/QAuser.vue'),
+    },
+    {
+      path: '/EquipmentMap',
+      name: 'EquipmentMap',
+      component: () => import('./views/EquipmentMap.vue'),
+    },
   ],
 })

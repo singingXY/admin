@@ -35,18 +35,18 @@
       <el-col :span="6"
               class="col3">
         <el-card shadow="always">
-          <h5>PLC-120系列</h5>
+          <h6>PLC-120系列</h6>
           <p>当前以太网通讯功能，通信速达率达到</p>
           <div id="kbps1"
                class="kbps"></div>
-          <span>CPU126-2Q DC/DC/DC</span>
+          <p>CPU126-2Q DC/DC/DC</p>
         </el-card>
         <el-card shadow="always">
-          <h5>HMI-120系列</h5>
+          <h6>HMI-120系列</h6>
           <p>当前以太网通讯功能，通信速达率达到</p>
           <div id="kbps2"
                class="kbps"></div>
-          <span>CPU126-2Q DC/DC/DC</span>
+          <p>CPU126-2Q DC/DC/DC</p>
         </el-card>
       </el-col>
     </el-row>
@@ -240,6 +240,10 @@ export default {
     },
     setChart3() {
       let dom = "myChartBar";
+      let aData = [];
+      for (var i = 0; i < 9; i++) {
+        aData.push(Math.floor(Math.random() * 400));
+      }
       let option = {
         tooltip: {
           trigger: "axis",
@@ -256,14 +260,17 @@ export default {
         grid: {
           left: "30",
           right: "0",
-          bottom: "10",
+          bottom: "20",
           top: "30",
         },
         xAxis: {
           type: "category",
-          show: false,
+          //show: false,
           data: ["A", "B", "C", "D", "E", "F", "G", "H", "I"],
           splitLine: { show: false },
+          axisLabel: { show: true },
+          axisTick: { show: false },
+          axisLine: { show: false },
         },
         yAxis: [
           {
@@ -286,7 +293,7 @@ export default {
           {
             name: "值",
             type: "bar",
-            data: [120, 190, 130, 240, 320, 280, 250, 300, 120],
+            data: aData,
             itemStyle: {
               barBorderRadius: [15, 15, 0, 0],
               color: "rgba(84, 164, 253, 1)",
@@ -315,42 +322,43 @@ export default {
     setChart4() {
       let dom = "kbps1";
       let option = {
-        xAxis: {
-          type: "value",
-          show: false,
-          splitLine: { show: false },
-        },
+        xAxis: { show: false },
         yAxis: {
           type: "category",
-          splitLine: { show: false },
           axisLine: { show: false },
           axisTick: { show: false },
         },
+        grid: {
+          left: 0,
+          right: 0,
+          bottom: 25,
+        },
         series: [
           {
-            name: "值",
+            // For shadow
             type: "bar",
-            data: [120, 190, 130, 240, 320, 280, 250, 300, 120],
+            barWidth: 3,
             itemStyle: {
-              barBorderRadius: [10, 10, 0, 0],
-              color: "rgba(84, 164, 253, 1)",
+              color: "rgba(0,0,0,0.5)",
+              barBorderRadius: 30,
             },
-            zlevel: 9,
-            xAxisIndex: 0,
-            barWidth: 10,
+            barGap: "-100%",
+            data: [200],
+            animation: false,
           },
           {
-            name: "背景",
             type: "bar",
-            data: [],
-            itemStyle: {
-              barBorderRadius: [10, 10, 0, 0],
-              color: "rgba(159,159,204,.2)",
+            barWidth: 3,
+            label: {
+              show: true,
+              position: [0, -30],
+              formatter: "{c}Mb/s",
+              fontSize: 18,
             },
-            zlevel: 11,
-            xAxisIndex: 1,
-            barWidth: 6,
-            barGap: "-100%",
+            itemStyle: {
+              barBorderRadius: 30,
+            },
+            data: [{ value: Math.floor(Math.random() * 200) }],
           },
         ],
       };
@@ -358,7 +366,47 @@ export default {
     },
     setChart5() {
       let dom = "kbps2";
-      let option = {};
+      let option = {
+        xAxis: { show: false },
+        yAxis: {
+          type: "category",
+          axisLine: { show: false },
+          axisTick: { show: false },
+        },
+        grid: {
+          left: 0,
+          right: 0,
+          bottom: 25,
+        },
+        series: [
+          {
+            // For shadow
+            type: "bar",
+            barWidth: 3,
+            itemStyle: {
+              color: "rgba(0,0,0,0.5)",
+              barBorderRadius: 10,
+            },
+            barGap: "-100%",
+            data: [200],
+            animation: false,
+          },
+          {
+            type: "bar",
+            barWidth: 3,
+            label: {
+              show: true,
+              position: [0, -30],
+              formatter: "{c}Mb/s",
+              fontSize: 18,
+            },
+            itemStyle: {
+              barBorderRadius: 10,
+            },
+            data: [{ value: Math.floor(Math.random() * 200) }],
+          },
+        ],
+      };
       this.drawChart(dom, option);
     },
   },
@@ -395,12 +443,21 @@ export default {
       height: 100%;
     }
     .col3 {
+      position: relative;
       .el-card {
+        position: absolute;
+        &:last-child {
+          bottom: 0;
+        }
         height: 45%;
         min-height: 140px;
       }
-      :first-child {
-        margin-bottom: 33px;
+      h6 {
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+      p {
+        font-size: 10px;
       }
     }
     .user-msg {
@@ -446,7 +503,7 @@ export default {
   }
   .kbps {
     width: 100%;
-    height: 100px;
+    height: 60px;
   }
 }
 </style>

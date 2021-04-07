@@ -48,7 +48,7 @@
       <i class="el-icon-ali-mokuaixuanze"></i>
       <span slot="title">Q&A模块</span>
     </el-menu-item>
-    <el-menu-item index=7>
+    <el-menu-item index="QAuser">
       <i class="el-icon-ali-fankui"></i>
       <span slot="title">用户信息反馈</span>
     </el-menu-item>
