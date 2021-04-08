@@ -2,13 +2,15 @@ import axios from 'axios'
 import QS from 'qs'
 
 // 环境的切换
-if (process.env.NODE_ENV == 'development') {
-  axios.defaults.baseURL =
-    'https://www.fastmock.site/mock/33a4bd66888f52ceaf7cb6db7c2a8543/admin'
-} else if (process.env.NODE_ENV == 'debug') {
-  axios.defaults.baseURL =
-    'https://www.fastmock.site/mock/33a4bd66888f52ceaf7cb6db7c2a8543/admin'
-}
+axios.defaults.baseURL =
+  'https://www.fastmock.site/mock/33a4bd66888f52ceaf7cb6db7c2a8543/admin'
+// if (process.env.NODE_ENV == 'development') {
+//   axios.defaults.baseURL =
+//     'https://www.fastmock.site/mock/33a4bd66888f52ceaf7cb6db7c2a8543/admin'
+// } else if (process.env.NODE_ENV == 'debug') {
+//   axios.defaults.baseURL =
+//     'https://www.fastmock.site/mock/33a4bd66888f52ceaf7cb6db7c2a8543/admin'
+// }
 
 // 请求超时时间
 axios.defaults.timeout = 10000
@@ -49,7 +51,7 @@ axios.interceptors.response.use(
  * @param {String} url [请求的url地址]
  * @param {Object} params [请求时携带的参数]
  */
-export function get(url, params) {
+export function get (url, params) {
   return new Promise((resolve, reject) => {
     axios
       .get(url, {
@@ -69,7 +71,7 @@ export function get(url, params) {
  * @param {String} url [请求的url地址]
  * @param {Object} params [请求时携带的参数]
  */
-export function post(url, params) {
+export function post (url, params) {
   return new Promise((resolve, reject) => {
     axios
       .post(url, QS.stringify(params))
