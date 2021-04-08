@@ -1,5 +1,7 @@
 # admin
 
+ http://singingxy.gitee.io/el-admin
+
 ## Project setup
 ```
 npm install
