@@ -32,14 +32,14 @@
       <i class="el-icon-ali-addshebei"></i>
       <span slot="title">添加设备</span>
     </el-menu-item>
-    <el-menu-item index=3>
+    <el-menu-item index="EquipmentMap">
       <i class="el-icon-ali-shebeimap"></i>
       <span slot="title">设备地图</span>
     </el-menu-item>
-    <el-menu-item index=4>
+    <!-- <el-menu-item index=4>
       <i class="el-icon-ali-shebeiliebiao"></i>
       <span slot="title">设备列表</span>
-    </el-menu-item>
+    </el-menu-item> -->
     <el-menu-item index="ModifyUser">
       <i class="el-icon-ali-xiugai"></i>
       <span slot="title">修改用户信息</span>
